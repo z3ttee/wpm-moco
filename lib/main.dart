@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moco_event_app/behaviours/scroll.behaviour.dart';
 import 'package:moco_event_app/states/event.state.dart';
 import 'package:moco_event_app/views/create-event.view.dart';
 import 'package:moco_event_app/views/home.view.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.black38
       ),
       home: const MOCOHome(),
+      scrollBehavior: MOCOScrollBehaviour(),
     );
   }
 }
