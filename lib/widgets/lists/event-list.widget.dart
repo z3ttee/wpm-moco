@@ -1,6 +1,4 @@
 
-import 'dart:ui';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:moco_event_app/entities/event.entity.dart';
@@ -47,7 +45,7 @@ class EventListWidget extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.black38,
+                    color: Colors.black26,
                     borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
                   child: SizedBox.expand(
