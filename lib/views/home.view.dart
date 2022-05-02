@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moco_event_app/entities/event.entity.dart';
 import '../states/event.state.dart';
 import '../widgets/lists/event-list.widget.dart';
 import 'create-event.view.dart';
@@ -11,7 +12,16 @@ class MOCOHome extends StatefulWidget {
 }
 
 class _MOCOHomeState extends State<MOCOHome> {
-  EventState state = EventState();
+
+  _addEvent(BuildContext context, Event event) {
+    setState(() {
+      EventState.events.add(event);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Neues Event angelegt.")
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +32,13 @@ class _MOCOHomeState extends State<MOCOHome> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("MOCO :: Events"),
       ),
       body: Column(
         children: [
           EventListWidget(
-              events: state.events
+              events: EventState.events
           )
         ],
       ),
@@ -37,7 +46,9 @@ class _MOCOHomeState extends State<MOCOHome> {
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const MOCOCreateEventView())
+              MaterialPageRoute(builder: (context) => MOCOCreateEventView(
+                onCreated: (event) => _addEvent(context, event),
+              ))
           );
         },
         tooltip: 'Event anlegen',

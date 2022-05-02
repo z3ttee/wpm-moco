@@ -1,6 +1,5 @@
 
-import 'dart:ui';
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:moco_event_app/entities/event.entity.dart';
 
@@ -37,6 +36,7 @@ class EventListWidget extends StatelessWidget {
           child: PageView.builder(
             itemCount: events.length,
             controller: PageController(viewportFraction: 0.8),
+            dragStartBehavior: DragStartBehavior.start,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
@@ -45,7 +45,7 @@ class EventListWidget extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.black38,
+                    color: Colors.black26,
                     borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
                   child: SizedBox.expand(

@@ -1,7 +1,8 @@
+import 'package:uuid/uuid.dart';
 
 class Event {
 
-  String id;
+  late String id;
   String title;
   String description;
 
@@ -9,5 +10,7 @@ class Event {
   DateTime startAt;
   DateTime endAt;
 
-  Event(this.id, this.title, this.description, this.startAt, this.endAt);
+  Event(this.title, this.description, this.startAt, this.endAt) {
+    id = const Uuid().v4();
+  }
 }
