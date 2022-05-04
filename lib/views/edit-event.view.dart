@@ -2,23 +2,60 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moco_event_app/entities/event.entity.dart';
+import 'package:moco_event_app/states/event.state.dart';
 
-class MOCOCreateEventView extends StatelessWidget {
+class MOCOEditEventView extends StatefulWidget {
+
+  final Event event;
+  final ValueSetter<Event> onEdited;
+
+  const MOCOEditEventView({Key? key, required this.event, required this.onEdited}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MOCOEditEventState();
+  }
+
+}
+class _MOCOEditEventState extends State<MOCOEditEventView> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
 
-  final ValueSetter<Event> onCreated;
+  @override
+  void initState() {
+    super.initState();
 
-  MOCOCreateEventView({Key? key, required this.onCreated}) : super(key: key);
+    _titleController = TextEditingController(text: widget.event.title);
+    _descriptionController = TextEditingController(text: widget.event.description);
+  }
 
   _saveEvent(BuildContext context) {
     if(_formKey.currentState!.validate()) {
-      var event = Event(_titleController.value.text, _descriptionController.value.text, DateTime.now(), DateTime.now());
+      // Set values
+      widget.event.title = _titleController.value.text;
+      widget.event.description = _descriptionController.value.text;
 
-      onCreated(event);
+      // Find index in global array for the event
+      int index = EventState.findIndex(widget.event);
+
+      // If index is -1, the event does not exist.
+      if(index == -1) {
+        // Show message to user
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Das Event kann nicht aktualisiert werden."),
+          backgroundColor: Colors.redAccent,
+        ));
+        return;
+      }
+
+      // Continue with updating the state
+      EventState.setAt(index, widget.event);
+      widget.onEdited(widget.event);
+
+      // Navigate back one page
       Navigator.pop(context);
     }
   }
@@ -27,7 +64,7 @@ class MOCOCreateEventView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Neues Event anlegen"),
+        title: const Text("Event bearbeiten"),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8),
@@ -39,6 +76,14 @@ class MOCOCreateEventView extends StatelessWidget {
                 label: const Text("Speichern")
             ),
           ),
+          Padding(
+              padding: const EdgeInsets.all(8),
+              child: IconButton(onPressed: () {
+
+              },
+              icon: const Icon(Icons.delete)
+            ),
+          )
         ],
       ),
       body: Padding(

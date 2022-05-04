@@ -6,10 +6,12 @@ import 'package:moco_event_app/entities/event.entity.dart';
 class EventListWidget extends StatelessWidget {
 
   final List<Event> events;
+  final ValueSetter<Event> onPressed;
 
   const EventListWidget({
     Key? key,
-    required this.events
+    required this.events,
+    required this.onPressed
   }) : super(key: key);
 
   @override
@@ -43,12 +45,16 @@ class EventListWidget extends StatelessWidget {
                   horizontal: 16,
                   vertical: 16
                 ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.all(Radius.circular(12))
-                  ),
-                  child: SizedBox.expand(
+                child: GestureDetector(
+                  onTap: () {
+                    onPressed(events[index]);
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.all(Radius.circular(12))
+                    ),
+                    child: SizedBox.expand(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
@@ -58,9 +64,12 @@ class EventListWidget extends StatelessWidget {
                             Text(events[index].title)
                           ],
                         ),
-                      )
+                      ),
+                    ),
                   ),
                 ),
+
+
               );
             }
           ),

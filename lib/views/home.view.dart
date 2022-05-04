@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moco_event_app/entities/event.entity.dart';
+import 'package:moco_event_app/views/event-info.view.dart';
 import '../states/event.state.dart';
 import '../widgets/lists/event-list.widget.dart';
 import 'create-event.view.dart';
@@ -38,7 +39,21 @@ class _MOCOHomeState extends State<MOCOHome> {
       body: Column(
         children: [
           EventListWidget(
-              events: EventState.events
+              events: EventState.events,
+              onPressed: (event) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MOCOEventInfoView(
+                        event: event,
+                        onChanged: (event) {
+                          setState(() {});
+                        },
+                      onRemoved: (event) {
+                          setState(() {});
+                      },
+                    ))
+                );
+              },
           )
         ],
       ),
