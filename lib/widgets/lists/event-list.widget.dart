@@ -27,12 +27,38 @@ class EventListWidget extends StatelessWidget {
               child: Text(
                 "Anstehende Events",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700
                 ),
               )
           ),
         ),
+
+        if(events.isEmpty)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                child: Row(
+                  children: const [
+                    Padding(
+                        padding: EdgeInsets.only(right: 8),
+                        child: Icon(Icons.info,
+                          color: Colors.white60,
+                        )
+                    ),
+                    Text(
+                      "Keine Events geplant",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white70
+                      ),
+                    )
+                  ],
+                )
+            ),
+          ),
+
         SizedBox(
           height: 400,
           child: PageView.builder(

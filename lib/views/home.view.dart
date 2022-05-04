@@ -34,7 +34,7 @@ class _MOCOHomeState extends State<MOCOHome> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: const Text("MOCO :: Events"),
+        title: const Text("Deine Eventübersicht"),
       ),
       body: Column(
         children: [
