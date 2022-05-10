@@ -85,6 +85,7 @@ class _MOCOEventInfoViewState extends State<MOCOEventInfoView> {
                 ))
             );
           },
+          tooltip: "Event bearbeiten",
           child: const Icon(Icons.edit),
         ),
     );
