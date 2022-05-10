@@ -75,14 +75,6 @@ class _MOCOEditEventState extends State<MOCOEditEventView> {
                 icon: const Icon(Icons.save),
                 label: const Text("Speichern")
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8),
-              child: IconButton(onPressed: () {
-
-              },
-              icon: const Icon(Icons.delete)
-            ),
           )
         ],
       ),
